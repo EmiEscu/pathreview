@@ -105,7 +105,7 @@ Some issues say "blocked by #X" or reference another issue that needs to be reso
 
 ## Week 8 — Reproduction & solution planning
 
-### Part 1 — Reproducing the Bug
+### Reproducing the Bug
 
 **Command used:**
 ```
@@ -156,3 +156,12 @@ parser._detect_sections(text)
 `\s*` appears only after the section word (trailing whitespace / before the
 `:`/`|`/`-` separator), never before it, so indented headers are silently
 missed.
+
+**Reproduction commit link:** https://github.com/EmiEscu/pathreview/tree/fix/147-resume-section-detection-leading-whitespace
+
+**PLAN.md link:** https://github.com/EmiEscu/pathreview/blob/fix/147-resume-section-detection-leading-whitespace/PLAN.md
+
+**Walkthrough video (recommended):** 
+
+**Blockers or open questions:**
+Still deciding between `\s*` and `[ \t]*` for the whitespace allowance — need to confirm which avoids false-matching across newlines.
