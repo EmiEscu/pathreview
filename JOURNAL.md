@@ -157,7 +157,7 @@ parser._detect_sections(text)
 `:`/`|`/`-` separator), never before it, so indented headers are silently
 missed.
 
-**Reproduction commit link:** https://github.com/EmiEscu/pathreview/tree/fix/147-resume-section-detection-leading-whitespace
+**Reproduction commit link:** https://github.com/EmiEscu/pathreview/commit/588c30e
 
 **PLAN.md link:** https://github.com/EmiEscu/pathreview/blob/fix/147-resume-section-detection-leading-whitespace/PLAN.md
 
