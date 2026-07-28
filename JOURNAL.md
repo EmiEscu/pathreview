@@ -100,3 +100,59 @@ Think about your week — other classes, work, other commitments. Is this achiev
 Some issues say "blocked by #X" or reference another issue that needs to be resolved first. Check the issue for any such dependencies.
 
 [X] This issue has no open blockers or dependencies on other unresolved issues.
+
+---
+
+## Week 8 — Reproduction & solution planning
+
+### Part 1 — Reproducing the Bug
+
+**Command used:**
+```
+cd pathreview
+python -m pytest tests/unit/test_resume_parser.py -k "no_work_experience or detect_sections" -v
+```
+
+**Result:** 2 failed, 8 deselected
+
+```
+FAILED tests/unit/test_resume_parser.py::TestResumeParser::test_parse_resume_no_work_experience
+  assert False
+   +  where False = any(<generator ...>)
+  # detected_lower has no "education" entry
+
+FAILED tests/unit/test_resume_parser.py::TestResumeParser::test_detect_sections
+  assert 0 > 0
+   +  where 0 = len([])
+  # _detect_sections() returned [] entirely
+```
+
+**Why this reproduces it without writing new test code:**
+Both existing tests build their sample resume text as indented Python
+triple-quoted strings (e.g. `resume_no_work = """\n        Education:\n ..."""`),
+which is a natural way to write multi-line text inline in a test function.
+Because the string is indented to match the surrounding code, every line
+carries leading whitespace before words like `Education:` and `Skills:`.
+
+`_detect_sections()`'s regex patterns anchor with bare `^`/`\n` immediately
+followed by the section word (e.g. `^education\s*[:|-]`), with no `\s*`
+allowance *before* the word. Leading indentation breaks that anchor, so the
+section is never matched — `detected_sections` comes back empty even though
+"Education" and "Skills" are clearly present in the text.
+
+**Minimal interactive repro:**
+```python
+from ingestion.parsers.resume_parser import ResumeParser
+
+parser = ResumeParser()
+text = "        Education:\n        BS Computer Science"
+parser._detect_sections(text)
+# Actual:   []
+# Expected: ["Education"]
+```
+
+**Root cause location:** `_detect_sections()` patterns at
+[resume_parser.py:134-139](pathreview/ingestion/parsers/resume_parser.py#L134-L139) —
+`\s*` appears only after the section word (trailing whitespace / before the
+`:`/`|`/`-` separator), never before it, so indented headers are silently
+missed.
