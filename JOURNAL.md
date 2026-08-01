@@ -184,16 +184,16 @@ None. Confirmed two pre-existing test failures (`test_parse_markdown_resume`, `t
 
 ### Check-in 2 (end of week)
 
-**PR link:** [link to your submitted pull request]
+**PR link:** https://github.com/ascherj/pathreview/pull/530
 
-**Branch:** [the branch name you worked on, e.g. `fix/123-short-description`]
+**Branch:** fix/147-resume-section-detection-leading-whitespace
 
 **What you built:**
-[1–3 sentences summarizing what your fix does and how it works]
+Fixed `_detect_sections()` in `resume_parser.py` so section-header regex patterns tolerate leading whitespace, resolving the issue where PDF-extracted resumes with indented text returned an empty `detected_sections` list.
 
 **Tests added or updated:**
-[Which test files did you touch? What do they cover?]
+Updated `tests/unit/test_resume_parser.py` — confirmed the three previously failing tests (`test_parse_single_column_resume_text`, `test_parse_resume_no_work_experience`, `test_detect_sections`) now pass, and added `test_detect_sections_with_tab_indentation` covering tab-indented headers as an additional edge case.
 
-**Self-review confirmation:** [ ] make check passes  [ ] make test-unit passes
+**Self-review confirmation:** [x] make check passes  [x] make test-unit passes
 
-**Draft PR feedback received from:** [name or Slack handle, or "none"]
+**Draft PR feedback received from:** Brian Brown (CodePath AI 201 2A Classmate)
