@@ -165,3 +165,35 @@ missed.
 
 **Blockers or open questions:**
 Still deciding between `\s*` and `[ \t]*` for the whitespace allowance — need to confirm which avoids false-matching across newlines.
+
+---
+
+## Week 9 — Solution building & PR submission
+
+### Check-in 1 (mid-week)
+
+**Current progress:**
+Implemented the regex fix in `_detect_sections()` (PLAN.md steps 1–2): added `[ \t]*` leading-whitespace tolerance and removed redundant `\n`-anchored patterns. Confirmed the 3 tests named in issue #147 (`test_parse_single_column_resume_text`, `test_parse_resume_no_work_experience`, `test_detect_sections`) now pass. Added a new test, `test_detect_sections_with_tab_indentation`, covering the tab-indentation edge case from PLAN.md.
+
+**Next steps:**
+Run full `make check` / `make test-unit`, open a draft PR for peer review, and address any feedback before marking it ready.
+
+**Blockers:**
+None. Confirmed two pre-existing test failures (`test_parse_markdown_resume`, `test_strip_markdown_syntax`) are unrelated to this issue — they stem from a separate bug in `_strip_markdown()`, out of scope for #147.
+---
+
+### Check-in 2 (end of week)
+
+**PR link:** [link to your submitted pull request]
+
+**Branch:** [the branch name you worked on, e.g. `fix/123-short-description`]
+
+**What you built:**
+[1–3 sentences summarizing what your fix does and how it works]
+
+**Tests added or updated:**
+[Which test files did you touch? What do they cover?]
+
+**Self-review confirmation:** [ ] make check passes  [ ] make test-unit passes
+
+**Draft PR feedback received from:** [name or Slack handle, or "none"]
