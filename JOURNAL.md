@@ -197,3 +197,40 @@ Updated `tests/unit/test_resume_parser.py` — confirmed the three previously fa
 **Self-review confirmation:** [x] make check passes  [x] make test-unit passes
 
 **Draft PR feedback received from:** Brian Brown (CodePath AI 201 2A Classmate)
+
+---
+
+## Week 10 — Iteration & reflection
+
+### Reviewer feedback
+
+**Feedback received:** [ ] Yes  [x] No — still awaiting review
+
+**Summary of feedback:**
+No review came in.
+
+**How you responded:**
+
+---
+
+### Reflection
+
+**What was harder than you expected?**
+
+The environment setup took longer than I expected — installing the various dependencies, and especially getting Docker installed and running, ate up more time than actually understanding the bug itself. Once the codebase was up and running, the issue itself turned out to be fairly approachable. The second-hardest part was figuring out which failing tests actually mattered. `test_resume_parser.py` has a lot of unit tests covering parsing behavior broadly, so it took real reading and reasoning to isolate which ones were tied to my specific issue versus which ones were failing for unrelated, pre-existing reasons.
+
+**What did you learn about working in a large codebase?**
+
+The biggest lesson was how much good documentation and code organization matter once a project grows beyond something one person can hold in their head. Docstrings, a clear file structure, and a CONTRIBUTING.md that spells out conventions weren't just nice-to-haves — without them, I would have really struggled to even locate where the bug lived. My own personal projects rarely have a detailed `README.md` or contribution guide, since I'm usually the only one who needs to understand them. This module made it clear why that documentation becomes essential the moment more than one person touches the code.
+
+**How did AI tools help — and where did they fall short?**
+
+AI tools were most useful for explaining unfamiliar functions and getting my local environment running — especially working through Docker, `winget`, and pre-commit hook issues that would have taken much longer to debug alone. Where they fell short was doing the actual detective work: pinpointing the precise root cause of the bug and designing a meaningfully new test case for the fixed behavior took my own close reading of the code, not AI suggestion.
+
+**What would you do differently if you started over?**
+
+I'd keep the same issue, but lean less on AI assistance during the actual implementation. I'd rather have taken a first pass at the fix myself and used AI to review and give feedback afterward, instead of leaning on it throughout. I'd also have used my `PLAN.md` more fully — I identified 5 edge cases and 3 risks during planning, but only ended up writing a test for one of them (tab indentation). Covering more of that ground would have made the fix more robust and the PR stronger.
+
+**What are you most proud of from this module?**
+
+I'm proud of how quickly I was able to trace the bug back to its exact location — it genuinely felt like solving a small mystery. I'm also proud of the  PR itself; I think the description and documentation turned out thorough and clear, laying out not just what changed but why.
